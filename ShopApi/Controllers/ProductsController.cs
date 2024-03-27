@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShopApi.Dtos;
+using ShopApi.Filters;
 using ShopApi.Services;
 
 namespace ShopApi.Controllers
@@ -14,7 +16,8 @@ namespace ShopApi.Controllers
             _productService = productService;
         }
 
-
+        [Authorize]
+        [RoleFilter("StandardUser")]
         [HttpGet]
         public ActionResult<IEnumerable<ProductDto>> Get()
         {
@@ -25,6 +28,10 @@ namespace ShopApi.Controllers
             }
             return Ok(products);
         }
+
+        [Authorize]
+        //[RoleFilter("Reader,BookAdder")]
+        [RoleFilter("StandardUser,Admin")]
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
@@ -37,7 +44,7 @@ namespace ShopApi.Controllers
             return Ok(product);
         }
 
-
+       
         [HttpPost]
         public IActionResult Post([FromBody] ProductForCreateDto productDto)
         {

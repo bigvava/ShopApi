@@ -50,7 +50,7 @@ namespace ShopApi.Services
             await _cache.SetStringAsync(cacheKey, JsonConvert.SerializeObject(productDto), cacheOptions);
 
 
-            return _mapper.Map<ProductDto>(product);
+            return productDto;
         }
 
         public ProductDto CreateProduct(ProductForCreateDto productDto)

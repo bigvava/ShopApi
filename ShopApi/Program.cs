@@ -57,7 +57,7 @@ namespace ShopApi
                         ValidateAudience = false
                     };
                 });
-            builder.Services.AddScoped<IAuthService, AuthService>();
+            
 
             builder.Services.AddControllers();
             builder.Services.AddStackExchangeRedisCache(options =>
@@ -77,6 +77,7 @@ namespace ShopApi
             //builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
 
             var app = builder.Build();

@@ -13,5 +13,7 @@ namespace ShopApi.Entities
         public DateTime DateAdded { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public int? AdderId { get; set; }
+        public User AdderUser { get; set; }
     }
 }

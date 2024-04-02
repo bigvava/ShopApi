@@ -6,7 +6,7 @@ namespace ShopApi.Services
     {
         IEnumerable<ProductDto> GetAllProducts();
         Task <ProductDto> GetProductById(int id);
-        ProductDto CreateProduct(ProductForCreateDto productDto);
+        ProductDto CreateProduct(ProductForCreateDto productDto, int userId);
         void UpdateProduct(ProductDto productDto);
         void DeleteProduct(int id);
     }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopApi.Dtos;
 using ShopApi.Filters;
 using ShopApi.Services;
+using System.Security.Claims;
 
 namespace ShopApi.Controllers
 {
@@ -30,7 +32,6 @@ namespace ShopApi.Controllers
         }
 
         [Authorize]
-        //[RoleFilter("Reader,BookAdder")]
         [RoleFilter("StandardUser,Admin")]
 
         [HttpGet("{id}")]
@@ -45,6 +46,9 @@ namespace ShopApi.Controllers
         }
 
        
+        
+        [Authorize]
+        [RoleFilter("Admin")]
         [HttpPost]
         public IActionResult Post([FromBody] ProductForCreateDto productDto)
         {
@@ -53,7 +57,8 @@ namespace ShopApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var p = _productService.CreateProduct(productDto);
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var p = _productService.CreateProduct(productDto,userId);
             return CreatedAtAction(nameof(Get), new { id = p.Id }, productDto);
         }
     }

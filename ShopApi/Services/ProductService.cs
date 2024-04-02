@@ -6,6 +6,8 @@ using ShopApi.Repositories;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace ShopApi.Services
 {
@@ -53,9 +55,11 @@ namespace ShopApi.Services
             return productDto;
         }
 
-        public ProductDto CreateProduct(ProductForCreateDto productDto)
+        public ProductDto CreateProduct(ProductForCreateDto productDto, int userId)
         {
+
             var product = _mapper.Map<Product>(productDto);
+            product.AdderId = userId;
             product = _productRepository.Insert(product);
             return _mapper.Map<ProductDto>(product);
         }

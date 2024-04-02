@@ -22,8 +22,9 @@ namespace ShopApi.Entities
         modelBuilder.Entity<Category>().Property(x=>x.Name).IsRequired().HasColumnType("nvarchar(150)");
         modelBuilder.Entity<Product>().HasOne(x=>x.Category).WithMany(x=>x.Products).HasForeignKey(x=>x.CategoryId);
         modelBuilder.Entity<Product>().Property(x => x.Price).HasPrecision(10, 2);
+        modelBuilder.Entity<Product>().HasOne(x => x.AdderUser).WithMany(x => x.Products).HasForeignKey(x => x.AdderId);
 
-        modelBuilder.Entity<User>().HasKey(x => x.Id);
+            modelBuilder.Entity<User>().HasKey(x => x.Id);
         modelBuilder.Entity<Role>().HasKey(x => x.Id);
 
         modelBuilder.Entity<UsersRole>().HasOne(x => x.User).WithMany(x => x.UsersRoles).HasForeignKey(x=>x.UserId);

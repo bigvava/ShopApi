@@ -11,5 +11,6 @@ namespace ShopApi.Entities
         public byte[] PasswordSalt { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public ICollection<UsersRole> UsersRoles { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }
